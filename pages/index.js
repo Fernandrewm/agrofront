@@ -1,9 +1,9 @@
-import { Button, Icon } from 'semantic-ui-react';
+import BasicLayout from "../layouts/BasicLayout";
 
 export default function Home() {
   return (
-    <div className="home">
-      <h1>Aqui esta el comienzo de AgroApp...</h1>
-    </div>
+    <BasicLayout>
+      <h1>Estamos en la home</h1>
+    </BasicLayout>
   )
 }
