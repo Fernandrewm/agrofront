@@ -2,11 +2,14 @@ import {useState} from "react";
 import {Container, Grid, Image, Input, Icon, Menu} from "semantic-ui-react";
 import Link from "next/link";
 import BasicModal from "../../Modal/BasicModal";
+import Auth from '../../Auth';
 
 export default function TopBar() {
     const [showModal, setShowModal] = useState(false);
+    const [titleModal, setTitleModal] = useState("Iniciar Sesión");
 
     const onShowModal = () => setShowModal(true);
+    const onCloseModal = () => setShowModal(false);
 
     return (
         <div className="top-bar">
@@ -26,10 +29,10 @@ export default function TopBar() {
             <BasicModal 
                 show={showModal} 
                 setShow={setShowModal} 
-                title="Inicia Sesión"
+                title={titleModal}
                 size="small"
             >
-                <h2>Contenido de Modal</h2>
+                <Auth onCloseModal={onCloseModal} setTitleModal={setTitleModal}/>
             </BasicModal>
         </div>
     )
