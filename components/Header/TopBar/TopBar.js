@@ -3,10 +3,12 @@ import {Container, Grid, Image, Input, Icon, Menu} from "semantic-ui-react";
 import Link from "next/link";
 import BasicModal from "../../Modal/BasicModal";
 import Auth from '../../Auth';
+import useAuth from "../../../hooks/useAuth";
 
 export default function TopBar() {
     const [showModal, setShowModal] = useState(false);
     const [titleModal, setTitleModal] = useState("Iniciar Sesión");
+    const {auth, logout} = useAuth();
 
     const onShowModal = () => setShowModal(true);
     const onCloseModal = () => setShowModal(false);
@@ -22,7 +24,7 @@ export default function TopBar() {
                         <Search/>
                     </Grid.Column>
                     <Grid.Column width={4} className="top-bar__right">
-                        <MenuUsuario onShowModal={onShowModal}/>
+                        {auth ? <button  onClick={logout}>Cerrar Sesion</button> : <MenuUsuario onShowModal={onShowModal}/>}
                     </Grid.Column>
                 </Grid>
             </Container>
