@@ -47,10 +47,10 @@ export default function MyApp({ Component, pageProps }) {
 
   const authData = useMemo(
     () => ({
-      auth: auth,
-      login: login,
-      logout: logout,
-      setRealoadUser: setReloadUser,
+      auth,
+      login,
+      logout,
+      setReloadUser,
     }),
     [auth]
   );

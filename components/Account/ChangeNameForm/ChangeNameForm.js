@@ -7,7 +7,7 @@ import {updateNameApi} from "../../../api/user";
 
 export default function ChangeNameForm(props) {
     //Obtenemos la informacion del usuario
-    const {user, logout} = props;
+    const {user, logout, setReloadUser} = props;
     const [loading, setLoading] = useState(false);
 
     //Iniciamos la validacion del formulario de cambio de nombre
@@ -15,17 +15,17 @@ export default function ChangeNameForm(props) {
         initialValues: initialValues(user.name, user.lastname),
         validationSchema: Yup.object(validationSchema()),
         onSubmit: async (formData) => {
-            setLoading(true);
-            const response = await updateNameApi(user.id, formData, logout);
-            console.log(response);
-            if (!response){
-                toast.error("Error al actualizar el nombre y apellidos.");
-            } else {
-                toast.success("Datos actualizados.");
-            }
-            setLoading(false);
-        }
-    })
+          setLoading(true);
+          const response = await updateNameApi(user.id, formData, logout);
+          if (!response) {
+            toast.error("Error al actualizar el nombre y apellidos");
+          } else {
+            setReloadUser(true);
+            toast.success("Nombre y apellidos actualizado");
+          }
+          setLoading(false);
+        },
+      });
     
     //Retornamos el layout con los datos
     return (

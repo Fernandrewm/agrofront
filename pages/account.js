@@ -7,7 +7,7 @@ import ChangeNameForm from "../components/Account/ChangeNameForm";
 
 export default function account() {
     const [user, setUser] = useState(undefined);
-    const {auth, logout} = useAuth();
+    const { auth, logout, setReloadUser } = useAuth();
     const router = useRouter();
 
     //Comprobamos si el usuario esta logueado o no (undefined)
@@ -28,18 +28,26 @@ export default function account() {
     //En caso de estar logueado mostramos la pagina
     return (
         <BasicLayout className="account">
-            <Configuration user={user} logout={logout}/>
+            <Configuration
+                user={user}
+                logout={logout}
+                setReloadUser={setReloadUser}
+            />
         </BasicLayout>
     )
 }
 
 function Configuration(props){
-    const {user, logout} = props;
+    const { user, logout, setReloadUser } = props;
     return(
         <div className="account__configuration">
             <div className="title">Configuracion</div>
             <div className="data">
-                <ChangeNameForm user={user} logout={logout}/>
+            <ChangeNameForm
+                user={user}
+                logout={logout}
+                setReloadUser={setReloadUser}
+            />
             </div>
         </div>
     )
