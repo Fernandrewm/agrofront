@@ -5,8 +5,10 @@ import * as Yup from "yup";
 import {toast} from "react-toastify";
 
 export default function ChangeEmailForm(props) {
+    //Destructuring de las propiedades heredadas
     const {user, logout, setReloadUser} = props;
 
+    //Validacion de formulario
     const formik = useFormik({
         initialValues: initialValues(),
         validationSchema: Yup.object(validationSchema()),
@@ -41,6 +43,7 @@ export default function ChangeEmailForm(props) {
     )
 }
 
+//Valores iniciales del formulario
 function initialValues() {
     return {
         email: "",
@@ -48,6 +51,7 @@ function initialValues() {
     }
 }
 
+//Validacion de campos del formulario
 function validationSchema() {
     return {
         email: Yup.string().email(true).required(true).oneOf([Yup.ref("repeatEmail")], true),
