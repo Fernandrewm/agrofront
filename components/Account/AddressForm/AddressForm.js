@@ -7,7 +7,7 @@ import useAuth from "../../../hooks/useAuth";
 import {createAddressApi} from "../../../api/address";
 
 export default function AddressForm(props) {
-    const {setShowModal} = props;
+    const {setShowModal, setReloadAddresses} = props;
     const [loading, setLoading] = useState(false);
     const {auth, logout} = useAuth();
 
@@ -34,6 +34,7 @@ export default function AddressForm(props) {
         } else {
             toast.success("Dirección creada exitosamente.")
             formik.resetForm();
+            setReloadAddresses(true);
             setLoading(false);
             setShowModal(false);
         }
