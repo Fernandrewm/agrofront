@@ -5,11 +5,12 @@ import useAuth from "../../../hooks/useAuth";
 export default function ListAddress() {
     const [addresses, setAddresses] = useState(null);
     const {auth, logout} = useAuth();
+    // console.log(addresses);
 
     useEffect(() => {
         (async () => {
             const response = await getAddressesApi(auth.idUser, logout);
-            console.log(response);
+            setAddresses(response || []);
         })()
     }, [])
             
