@@ -1,21 +1,21 @@
 import React, {useState} from 'react';
 import {Form, Button} from "semantic-ui-react";
 import {toast} from "react-toastify";
-import {FormikProvider, useFormik} from "formik";
+import {useFormik} from "formik";
 import * as Yup from "yup";
 import useAuth from "../../../hooks/useAuth";
-import {createAddressApi} from "../../../api/address";
+import {createAddressApi, updateAddressApi} from "../../../api/address";
 
 export default function AddressForm(props) {
-    const {setShowModal, setReloadAddresses} = props;
+    const {setShowModal, setReloadAddresses, newAddress, address} = props;
     const [loading, setLoading] = useState(false);
     const {auth, logout} = useAuth();
 
     const formik = useFormik({
-        initialValues: initialValues(),
+        initialValues: initialValues(address),
         validationSchema: Yup.object(validationSchema()),
         onSubmit: (formData) => {
-           createAddress(formData);
+            newAddress ? createAddress(formData) : updateAddress(formData);
         }
     });
 
@@ -38,7 +38,26 @@ export default function AddressForm(props) {
             setLoading(false);
             setShowModal(false);
         }
-      };
+    };
+
+    const updateAddress = (formData) => {
+        setLoading(true);
+        const formDataTemp = {
+            ...formData,
+            users_permissions_user: auth.idUser,
+        };
+        const response = updateAddressApi(address.id, formDataTemp, logout);
+        if(!response){
+            toast.error("Error al actualizar la direccion.");
+            setLoading(false);
+        } else {
+            formik.resetForm();
+            setReloadAddresses(true);
+            toast.success("Direccion actualizada correctamente.");
+            setLoading(false);
+            setShowModal(false);
+        }
+    }
 
     return (
         <Form onSubmit={formik.handleSubmit}>
@@ -113,22 +132,22 @@ export default function AddressForm(props) {
             </Form.Group>
             <div className="actions">
                 <Button className="submit" type="submit" loading={loading}>
-                    Crear direccion
+                    {newAddress ? "Crear direccion" : "Actualizar direccion"}
                 </Button>
             </div>
         </Form>
     )
 }
 
-function initialValues() {
+function initialValues(address) {
     return {
-        title: "",
-        name: "",
-        address: "",
-        city: "",
-        state: "",
-        postalCode: "",
-        phone: "",
+        title: address?.title || "",
+        name: address?.name || "",
+        address: address?.address || "",
+        city: address?.city || "",
+        state: address?.state || "",
+        postalCode: address?.postalCode || "",
+        phone: address?.phone || "",
     };
 }
 
