@@ -1,13 +1,25 @@
-import {Container, Menu, Grid, Icon, Label} from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import {map} from "lodash";
+import {Container, Menu, Grid} from "semantic-ui-react";
+import {getCategoriesApi} from "../../../api/category";
 
 export default function Categorias() {
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+            const response = await getCategoriesApi();
+            setCategories(response || []);
+        })()
+    }, [])
+
     return (
         <div className="categorias">
             <Container>
                 <Grid>
                     <Grid.Column className="categorias__disponibles" width={16}>
-                        <ObtenerCategorias/>
+                        <ObtenerCategorias categories={categories}/>
                     </Grid.Column>
                 </Grid>
             </Container>
@@ -15,24 +27,17 @@ export default function Categorias() {
     )
 }
 
-function ObtenerCategorias() {
+function ObtenerCategorias(props) {
+    const {categories} = props;
     return(
         <Menu>
-            <Link href="#">
-                <Menu.Item as="a">
-                    Verduras
-                </Menu.Item>
-            </Link>
-            <Link href="#">
-                <Menu.Item as="a">
-                    Carnes
-                </Menu.Item>
-            </Link>
-            <Link href="#">
-                <Menu.Item as="a">
-                    Frutas
-                </Menu.Item>
-            </Link>
+            {map(categories, (category) => (
+                <Link href={`/categorias/${category.url}`} key={category.id}>
+                    <Menu.Item as="a" name={category.url}>
+                        {category.title}
+                    </Menu.Item>
+                </Link>
+            ))}
         </Menu>
     );
 }
