@@ -1,5 +1,4 @@
 .top-bar{
-    // height: 60px;
     background-color: $color-primary;
 
     .ui.grid{
@@ -15,8 +14,12 @@
         align-items: center;
 
         img{
-            height: 40px;
+            width: 100%;
             transition: all 0.5s;
+
+            @include md {
+                width: 50%;
+            }
 
             &:hover{
                 transform: translateX(-15px);
@@ -50,26 +53,35 @@
     &__right{
         display: flex !important;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: center;
 
         .ui.menu{
             border: 0;
             box-shadow: none;
             height: 100%;
+            width: 450px;
             background: transparent;
-        }
 
-        .item{
-            color: $color-third;
-            border-radius: 0 !important;
-
-            &:hover{
-                background-color: $color-secondary;
-                color: $font-dark;
+            .item{
+                color: $color-secondary;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                border: 0;
+                border-radius: 0 !important;
+                width: 100%;
+                padding: 0px 50px;
+    
+                &:hover{
+                    // background-color: $color-third;
+                    color: $font-dark;
+                }
             }
         }
 
+
         i.icon, i.icons{
+            border: 0;
             color: #fff;
             font-size: 20px;
         }

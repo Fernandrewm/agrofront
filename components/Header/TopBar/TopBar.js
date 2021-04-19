@@ -26,15 +26,19 @@ export default function TopBar() {
         <div className="top-bar">
             <Container>
                 <Grid className="top-bar">
-                    <Grid.Column width={2} className="top-bar__left">
-                        <Logo/>
-                    </Grid.Column>
-                    <Grid.Column width={6} className="top-bar__center">
-                        <Search/>
-                    </Grid.Column>
-                    <Grid.Column width={8} className="top-bar__right">
-                        {user !== undefined && <MenuUsuario onShowModal={onShowModal} user={user} logout={logout}/>}
-                    </Grid.Column>
+                    <Grid.Row>
+                        <Grid.Column width={6} className="top-bar__left">
+                            <Logo/>
+                        </Grid.Column>
+                        <Grid.Column width={10} className="top-bar__center">
+                            <Search/>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column width={16} className="top-bar__right">
+                            {user !== undefined && <MenuUsuario onShowModal={onShowModal} user={user} logout={logout}/>}
+                        </Grid.Column>
+                    </Grid.Row>
                 </Grid>
             </Container>
             <BasicModal 
@@ -53,7 +57,7 @@ function Logo(){
     return (
         <Link href="/">
             <a>
-                <Image src="/logo.png" alt="AgroApp"/>
+                <Image src="https://agroapp-bucket.s3.us-east-2.amazonaws.com/AgroAppLogo.png" alt="AgroApp"/>
             </a>
         </Link>
     );
@@ -69,32 +73,50 @@ function MenuUsuario(props) {
         <Menu>
             {user ? (
             <>
-                <Link href="/orders">
-                    <Menu.Item as="a">
-                        <Icon name="box"/>
-                        Mis pedidos
-                    </Menu.Item>
-                </Link>
-                <Link href="/wishlist">
-                    <Menu.Item as="a">
-                        <Icon name="heart"/>
-                        Mis favoritos
-                    </Menu.Item>
-                </Link>
-                <Link href="/account">
-                    <Menu.Item as="a">
-                        <Icon name="user"/>
-                        {user.name}
-                    </Menu.Item>
-                </Link>
-                <Link href="/cart">
-                    <Menu.Item as="a" className="m-0">
-                        <Icon name="cart"/>
-                    </Menu.Item>
-                </Link>
-                <Menu.Item onClick={logout} className="m-0">
-                    <Icon name="power off"/>
-                </Menu.Item>
+                <Grid columns="equal">
+                    <Grid.Row>
+                        <Grid.Column width={5}>
+                            <Link href="/orders">
+                                <Menu.Item as="a">
+                                    <Icon name="box"/>
+                                    Mis pedidos
+                                </Menu.Item>
+                            </Link>
+                        </Grid.Column>
+                        <Grid.Column width={5}>            
+                            <Link href="/wishlist">
+                                <Menu.Item as="a">
+                                    <Icon name="heart"/>
+                                    Mis favoritos
+                                </Menu.Item>
+                            </Link>
+                        </Grid.Column>
+                        <Grid.Column width={5}>
+                            <Link href="/account">
+                                <Menu.Item as="a">
+                                    <Icon name="user"/>
+                                    {user.name}
+                                </Menu.Item>
+                            </Link>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column width={8}>
+                            <Link href="/cart">
+                                <Menu.Item as="a" className="m-0">
+                                    <Icon name="cart"/>
+                                    Carrito
+                                </Menu.Item>
+                            </Link>
+                        </Grid.Column>
+                        <Grid.Column width={8}>
+                            <Menu.Item onClick={logout} className="m-0">
+                                <Icon name="power off"/>
+                                Cerrar Sesión
+                            </Menu.Item>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
             </>
             ) : (
                 <Menu.Item onClick={onShowModal}>
