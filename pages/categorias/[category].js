@@ -3,15 +3,22 @@ import {Loader} from "semantic-ui-react";
 import {useRouter} from "next/router";
 import {size} from "lodash";
 import BasicLayout from "../../layouts/BasicLayout";
-import {getProductsCategoryApi} from "../../api/product";
+import {getProductsCategoryApi, getTotalProductCategoryApi} from "../../api/product";
 import ListProducts from "../../components/ListProducts";
 
 const limitPerPage = 10;
 
 export default function Category() {
     const {query} = useRouter();
-
     const [products, setProducts] = useState(null);
+    const [totalProducts, setTotalProducts] = useState(null);
+
+    const getStartItem = () => {
+        const currentPages = parseInt(query.page);
+        if (!query.page || currentPages === 1) return 0;
+        else return currentPages * limitPerPage - limitPerPage; 
+    }
+    console.log(getStartItem());
 
     useEffect(() => {
         (async () => {
@@ -21,6 +28,13 @@ export default function Category() {
             }
         })()
     }, [query]);
+
+    useEffect(() => {
+        ( async () => {
+            const response = await getTotalProductCategoryApi(query.category);
+            setTotalProducts(response);
+        })()
+    }, [query])
 
     return (
         <BasicLayout className="category">
