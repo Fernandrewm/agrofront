@@ -30,6 +30,17 @@
             overflow: hidden;
         }
 
+        &-info-header{
+            display: flex !important;
+            align-items: center;
+            justify-content: space-between;
+
+            i.icon{
+                color: red;
+                font-size: 16px;
+            }
+        }
+
         &-price{
             display: flex;
             justify-content: space-between;
