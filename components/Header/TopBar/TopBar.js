@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Container, Grid, Image, Input, Icon, Menu} from "semantic-ui-react";
+import {useRouter} from "next/router";
 import Link from "next/link";
 import BasicModal from "../../Modal/BasicModal";
 import Auth from '../../Auth';
@@ -64,7 +65,25 @@ function Logo(){
 }
 
 function Search(){
-    return <Input id="search-product" icon={{name:"search"}}/>;
+    const [searchStr, setSearchStr] = useState("");
+    const [load, setLoad] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        if(load) {
+            router.push(`/search?query=${searchStr}`)
+        }
+        setLoad(true);
+    }, [searchStr])
+
+    return (
+        <Input 
+            id="search-product"
+            icon={{name:"search"}}
+            value={router.query.query}
+            onChange={(_, data)=> setSearchStr(data.value)}
+        />
+    );
 }
 
 function MenuUsuario(props) {
