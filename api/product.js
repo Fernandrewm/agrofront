@@ -41,6 +41,18 @@ export async function getTotalProductCategoryApi(category) {
   }
 }
 
+export async function getProductByIdApi(idProduct) {
+  try {
+    const url = `${BASE_PATH}/products?id=${idProduct}`;
+    const response = await fetch(url);
+    const result = await response.json();
+    return result[0];
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
 export async function searchProductsApi(title){
   try {
     const url = `${BASE_PATH}/products?_q=${title}`;
