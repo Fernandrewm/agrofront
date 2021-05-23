@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react";
-import {Container, Grid, Image, Input, Icon, Menu} from "semantic-ui-react";
+import {Container, Grid, Image, Input, Icon, Menu, Label} from "semantic-ui-react";
 import {useRouter} from "next/router";
 import Link from "next/link";
 import BasicModal from "../../Modal/BasicModal";
 import Auth from '../../Auth';
 import useAuth from "../../../hooks/useAuth";
+import useCart from "../../../hooks/useCart";
 import {getMeApi} from "../../../api/user";
 
 export default function TopBar() {
@@ -88,6 +89,8 @@ function Search(){
 
 function MenuUsuario(props) {
     const {onShowModal, user, logout} = props;
+    const {productsCart} = useCart();
+
     return (
         <Menu>
             {user ? (
@@ -124,6 +127,9 @@ function MenuUsuario(props) {
                             <Link href="/cart">
                                 <Menu.Item as="a" className="m-0">
                                     <Icon name="cart"/>
+                                    <Label color="red" floating circular>
+                                        {productsCart}
+                                    </Label>
                                     Carrito
                                 </Menu.Item>
                             </Link>

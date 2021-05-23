@@ -5,7 +5,7 @@ import {useRouter} from "next/router";
 import AuthContext from "../context/AuthContext";
 import CartContext from "../context/CartContext";
 import {getToken, setToken, removeToken} from "../api/token";
-import {getProductsCart, addProductCart} from "../api/cart";
+import {getProductsCart, addProductCart, countProductsCart} from "../api/cart";
 import "../scss/global.scss";
 import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,6 +15,8 @@ export default function MyApp({ Component, pageProps }) {
   //Funcion que guarda los datos de inicio de sesion en el localstorage y decodifica el jwt
   const [auth, setAuth] = useState(undefined);
   const [reloadUser, setReloadUser] = useState(false);
+  const [totalProductsCart, setTotalProductsCart] = useState(0);
+  const [reloadCart, setReloadCart] = useState(false);
   const router = useRouter();
   
   useEffect(() => {
@@ -29,6 +31,11 @@ export default function MyApp({ Component, pageProps }) {
     }
     setReloadUser(false);
   }, [reloadUser]);
+
+  useEffect(() => {
+    setTotalProductsCart(countProductsCart());
+    setReloadCart(false);
+  }, [reloadCart, auth]);
 
   const login = (token) => {
     setToken(token);
@@ -51,6 +58,7 @@ export default function MyApp({ Component, pageProps }) {
     const token = getToken();
     if(token){
       addProductCart(product);
+      setReloadCart(true);
     } else {
       toast.warning("Debes iniciar sesión para comprar productos.");
     }
@@ -68,13 +76,13 @@ export default function MyApp({ Component, pageProps }) {
 
   const cartData = useMemo(
     () => ({
-      productsCart: 0,
+      productsCart: totalProductsCart,
       addProductCart: (product) => addProduct(product),
       getProductCart: getProductsCart,
       removeProductCart: () => null,
       removeAllProductCart: () => null,
     }),
-    []
+    [totalProductsCart]
   );
 
   if(auth === undefined) return null;
