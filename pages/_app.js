@@ -3,7 +3,9 @@ import { toast, ToastContainer } from "react-toastify";
 import jwtDecode from "jwt-decode";
 import {useRouter} from "next/router";
 import AuthContext from "../context/AuthContext";
+import CartContext from "../context/CartContext";
 import {getToken, setToken, removeToken} from "../api/token";
+import {getProductsCart, addProductCart} from "../api/cart";
 import "../scss/global.scss";
 import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -45,6 +47,15 @@ export default function MyApp({ Component, pageProps }) {
     }
   }
 
+  const addProduct = (product) => {
+    const token = getToken();
+    if(token){
+      addProductCart(product);
+    } else {
+      toast.warning("Debes iniciar sesión para comprar productos.");
+    }
+  }
+
   const authData = useMemo(
     () => ({
       auth,
@@ -55,22 +66,35 @@ export default function MyApp({ Component, pageProps }) {
     [auth]
   );
 
+  const cartData = useMemo(
+    () => ({
+      productsCart: 0,
+      addProductCart: (product) => addProduct(product),
+      getProductCart: getProductsCart,
+      removeProductCart: () => null,
+      removeAllProductCart: () => null,
+    }),
+    []
+  );
+
   if(auth === undefined) return null;
 
   return (
     <AuthContext.Provider value={authData}>
-      <Component {...pageProps} />
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover
-      />
+      <CartContext.Provider value={cartData}>
+        <Component {...pageProps} />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+        />
+      </CartContext.Provider>
     </AuthContext.Provider>
   )
 

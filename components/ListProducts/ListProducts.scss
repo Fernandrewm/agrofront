@@ -63,6 +63,24 @@
                 color: $color-primary;
             }
         }
+
+        &-addCart{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+
+            .ui.button{
+                width: 100%;
+                background-color: $color-third;
+                color: $color-secondary;
+
+                &:hover{
+                    background-color: $color-secondary;
+                    color: $color-third;
+                }
+            }
+        }
     }
 
 }
