@@ -4,14 +4,14 @@ import {forEach, map} from "lodash";
 import useCart from "../../../hooks/useCart";
 
 export default function SummaryCart(props) {
-    const {products, reloadCart, setReloadCart} = props;
+    const {products, reloadCart, setReloadCart, productsQuantity} = props;
     const [totalPrice, setTotalPrice] = useState(0);
     const {removeProductCart} = useCart();
 
     useEffect(() => {
         let price = 0;
-        forEach(products, (product) => {
-            price += product.price;
+        forEach(products, (product, index) => {
+            price += product.price * productsQuantity[index];
         });
         setTotalPrice(price);
     }, [reloadCart, products])
@@ -37,7 +37,7 @@ export default function SummaryCart(props) {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {map(products, (product) => (
+                        {map(products, (product, index) => (
                             <Table.Row key={product.id} className="summary-cart__product">
                                 <Table.Cell>
                                     <Icon name="close" link onClick={() => removeProduct(product.id)}/>
@@ -48,7 +48,7 @@ export default function SummaryCart(props) {
                                     L.{product.price}
                                 </Table.Cell>
                                 <Table.Cell>
-                                    <Input placeholder="Cantidad" defaultValue='1'/>
+                                    <p>{productsQuantity[index]}</p>
                                 </Table.Cell>
                                 <Table.Cell>
                                     3-7 días

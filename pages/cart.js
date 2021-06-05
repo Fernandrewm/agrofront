@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {forEach} from "lodash"; 
 import BasicLayout from "../layouts/BasicLayout";
 import {getProductByIdApi} from "../api/product";
 import useCart from "../hooks/useCart";
@@ -22,6 +23,7 @@ function EmptyCart(){
 function FullCart(props){
     const {products} = props;
     const [productsData, setProductsData] = useState(null);
+    const [productsQuantity, setProductsQuantity] = useState(null);
     const [reloadCart, setReloadCart] = useState(false);
 
     //Obtenemos los datos de los productos del carrito mediante el id
@@ -36,10 +38,21 @@ function FullCart(props){
         })();
         setReloadCart(false);
     }, [reloadCart])
+
+    //Obtenemos los datos de las cantidades del carrito del localstorage
+    useEffect(() => {
+        const quantityTemp = [];
+        forEach(products, (product) => {
+            const productTemp = product.split("-");
+            quantityTemp.push(productTemp[1]);
+        });
+        setProductsQuantity(quantityTemp);
+        setReloadCart(false);
+    }, [reloadCart])
     
     return (
         <BasicLayout className="empty-cart">
-            <SummaryCart products={productsData} reloadCart={reloadCart} setReloadCart={setReloadCart}/>
+            <SummaryCart products={productsData} productsQuantity={productsQuantity} reloadCart={reloadCart} setReloadCart={setReloadCart}/>
         </BasicLayout>
     )
 }

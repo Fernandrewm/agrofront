@@ -47,6 +47,7 @@ function Product(props) {
     const [isFavorite, setIsFavorite] = useState(false);
     const [reloadFavorite, setReloadFavorite] = useState(false);
     const [quantity, setQuantity] = useState(1);
+    // console.log(quantity);
     
     useEffect(() => {
         (async () => {
