@@ -1,5 +1,5 @@
 import {toast} from "react-toastify";
-import {size, includes, remove, forEach, difference} from "lodash";
+import {size, includes, remove, forEach} from "lodash";
 import {BASE_PATH, CART} from "../utils/constants";
 
 
@@ -15,13 +15,21 @@ export function getProductsCart(){
 }
 
 export function addProductCart(product) {
+    const productTemp = product.split("-");
     const cart = getProductsCart();
-
+    
     if (!cart) {
         localStorage.setItem(CART, product);
         toast.success("Producto agregado al carrito.");
     } else {
-        const productFound = includes(cart, product);
+        const cartTemp = [];
+        
+        forEach(cart, (cartItem) => {
+            const cartItempTemp = cartItem.split("-");
+            cartTemp.push(cartItempTemp[0]);
+        });
+
+        const productFound = includes(cartTemp, productTemp[0]);
         if (productFound) {
             console.log(productFound);
             toast.warning("El producto ya existe en el carrito.");
