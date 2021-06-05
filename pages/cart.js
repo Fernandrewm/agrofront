@@ -4,6 +4,7 @@ import BasicLayout from "../layouts/BasicLayout";
 import {getProductByIdApi} from "../api/product";
 import useCart from "../hooks/useCart";
 import SummaryCart from "../components/Cart/SummaryCart";
+import AddressShipping from "../components/Cart/AddressShipping";
 
 export default function Cart() {
     const {getProductCart} = useCart();
@@ -25,6 +26,7 @@ function FullCart(props){
     const [productsData, setProductsData] = useState(null);
     const [productsQuantity, setProductsQuantity] = useState(null);
     const [reloadCart, setReloadCart] = useState(false);
+    const [address, setAddress] = useState(null);
 
     //Obtenemos los datos de los productos del carrito mediante el id
     useEffect(() => {
@@ -52,7 +54,13 @@ function FullCart(props){
     
     return (
         <BasicLayout className="empty-cart">
-            <SummaryCart products={productsData} productsQuantity={productsQuantity} reloadCart={reloadCart} setReloadCart={setReloadCart}/>
+            <SummaryCart 
+                products={productsData}
+                productsQuantity={productsQuantity}
+                reloadCart={reloadCart}
+                setReloadCart={setReloadCart}
+            />
+            <AddressShipping setAddress={setAddress}/>
         </BasicLayout>
     )
 }
