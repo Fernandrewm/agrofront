@@ -1,5 +1,5 @@
 import {toast} from "react-toastify";
-import {size, includes, remove} from "lodash";
+import {size, includes, remove, forEach, difference} from "lodash";
 import {BASE_PATH, CART} from "../utils/constants";
 
 
@@ -45,11 +45,26 @@ export function countProductsCart(){
 
 export function removeProductCart(product) {
     const cart = getProductsCart();
+    console.log(cart);
+    const cartTemp = [];
+    let indexCart = null;
     
-    remove(cart, (item) => {
-        console.log(typeof item)
+    forEach(cart, (cartItem) => {
+        const cartItempTemp = cartItem.split("-");
+        cartTemp.push(cartItempTemp[0]);
+    });
+    
+    remove(cartTemp, (item, index) => {
+        if(item === product.toString()){
+            indexCart = index;
+        }
         return item === product.toString();
     });
+
+    console.log(cartTemp);
+    console.log(indexCart);
+    cart.splice(indexCart,1);
+    
   
     if (size(cart) > 0) {
       localStorage.setItem(CART, cart);

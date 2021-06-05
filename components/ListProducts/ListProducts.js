@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Image, Grid, Icon, GridColumn, Button} from "semantic-ui-react";
+import {Image, Grid, Icon, GridColumn, Button, Input} from "semantic-ui-react";
 import Link from "next/link";
 import {map, size} from "lodash"; 
 import useWindowSize from "../../hooks/useWindowSize";
@@ -41,12 +41,12 @@ export default function ListProducts(props) {
 
 function Product(props) {
     const {product} = props;
-    // console.log(product);
     const {auth, logout} = useAuth();
     const {addProductCart} = useCart();
-
+    
     const [isFavorite, setIsFavorite] = useState(false);
     const [reloadFavorite, setReloadFavorite] = useState(false);
+    const [quantity, setQuantity] = useState(1);
     
     useEffect(() => {
         (async () => {
@@ -73,7 +73,6 @@ function Product(props) {
 
     return (
         <Grid.Column className="list-products__product">
-            {/* <Link href={`/${product.url}`}> */}
                 <a>
                     <div className="list-products__product-image">
                         <Image src={product.image.url} alt={product.title}/>
@@ -96,12 +95,12 @@ function Product(props) {
                                 <span className="price">L.{product.price}</span>
                             </div>
                             <div className="list-products__product-addCart">
-                                <Button onClick={()=> addProductCart(product.id.toString())}>Agregar al carrito</Button>
+                                <Input onChange={(_, data)=> setQuantity(data.value)} type='number' placeholder='Cantidad'/>
+                                <Button onClick={()=> addProductCart(product.id.toString()+"-"+quantity)}>Agregar al carrito</Button>
                             </div>
                         </div>
                     </div>
                 </a>
-            {/* </Link> */}
         </Grid.Column>
     )
 }

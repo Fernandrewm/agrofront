@@ -42,8 +42,9 @@ export async function getTotalProductCategoryApi(category) {
 }
 
 export async function getProductByIdApi(idProduct) {
+  const tempProduct = idProduct.split("-");
   try {
-    const url = `${BASE_PATH}/products?id=${idProduct}`;
+    const url = `${BASE_PATH}/products?id=${tempProduct[0]}`;
     const response = await fetch(url);
     const result = await response.json();
     return result[0];
