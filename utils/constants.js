@@ -1,5 +1,9 @@
-export const BASE_PATH = "https://agroapp-backend-mot2i.ondigitalocean.app"
+// export const BASE_PATH = "https://agroapp-backend-mot2i.ondigitalocean.app"
 // export const BASE_PATH = "https://agroback-heroku.herokuapp.com"
-// export const BASE_PATH = "http://localhost:1337"
+export const BASE_PATH = "http://localhost:1337"
 export const TOKEN = "token";
 export const CART = "cart";
+export const ISV = 1.15;
+export const COMISSION = 0.09;
+export const ENVIO = 200;
+export const STRIPE_TOKEN = "pk_test_51Iz8d1Ggniy6OWKBwxihfD6ptllsKAopnRnN3KK3fuPexukSMwxFIOqj0r7Wd8awlfefng7XUGkJc0uGUxdhnaPB007OoQxjYq";

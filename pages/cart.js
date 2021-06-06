@@ -5,6 +5,7 @@ import {getProductByIdApi} from "../api/product";
 import useCart from "../hooks/useCart";
 import SummaryCart from "../components/Cart/SummaryCart";
 import AddressShipping from "../components/Cart/AddressShipping";
+import Payment from "../components/Cart/Payment";
 
 export default function Cart() {
     const {getProductCart} = useCart();
@@ -26,7 +27,7 @@ function FullCart(props){
     const [productsData, setProductsData] = useState(null);
     const [productsQuantity, setProductsQuantity] = useState(null);
     const [reloadCart, setReloadCart] = useState(false);
-    const [address, setAddress] = useState(null);
+    // const [address, setAddress] = useState(null);
 
     //Obtenemos los datos de los productos del carrito mediante el id
     useEffect(() => {
@@ -60,7 +61,8 @@ function FullCart(props){
                 reloadCart={reloadCart}
                 setReloadCart={setReloadCart}
             />
-            <AddressShipping setAddress={setAddress}/>
+            {/* <AddressShipping setAddress={setAddress}/>
+            {address && <Payment  products={productsData} address={address}/>} */}
         </BasicLayout>
     )
 }

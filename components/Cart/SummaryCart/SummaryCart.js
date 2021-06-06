@@ -2,10 +2,16 @@ import React, {useState, useEffect} from 'react';
 import {Table, Image, Icon, Tab, Input} from "semantic-ui-react";
 import {forEach, map} from "lodash";
 import useCart from "../../../hooks/useCart";
+import {ISV, COMISSION, ENVIO} from "../../../utils/constants";
+import AddressShipping from "../AddressShipping";
+import Payment from "../Payment";
 
 export default function SummaryCart(props) {
     const {products, reloadCart, setReloadCart, productsQuantity} = props;
+    const [subTotal, setSubTotal] = useState(0);
+    const [commission, setCommission] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [address, setAddress] = useState(null);
     const {removeProductCart} = useCart();
 
     useEffect(() => {
@@ -13,8 +19,19 @@ export default function SummaryCart(props) {
         forEach(products, (product, index) => {
             price += product.price * productsQuantity[index];
         });
-        setTotalPrice(price);
+        price *= ISV;
+        setSubTotal(price);
     }, [reloadCart, products])
+
+    useEffect(() => {
+        let priceComission = subTotal * COMISSION;
+        setCommission(priceComission);
+    }, [subTotal])
+
+    useEffect(() => {
+        let priceTotal = subTotal + commission + ENVIO;
+        setTotalPrice(priceTotal);
+    }, [subTotal, commission])
 
     const removeProduct = (product) => {
         removeProductCart(product);
@@ -31,7 +48,7 @@ export default function SummaryCart(props) {
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Producto</Table.HeaderCell>
-                            <Table.HeaderCell>Precio</Table.HeaderCell>
+                            <Table.HeaderCell>Precio (ISV 15%)</Table.HeaderCell>
                             <Table.HeaderCell>Cantidad</Table.HeaderCell>
                             <Table.HeaderCell>Entrega</Table.HeaderCell>
                         </Table.Row>
@@ -45,7 +62,7 @@ export default function SummaryCart(props) {
                                     {product.title}
                                 </Table.Cell>
                                 <Table.Cell>
-                                    L.{product.price}
+                                    L.{(product.price * 1.15).toFixed(2)}
                                 </Table.Cell>
                                 <Table.Cell>
                                     <p>{productsQuantity[index]}</p>
@@ -57,12 +74,30 @@ export default function SummaryCart(props) {
                         ))}
                         <Table.Row className="summary-cart__resume">
                             <Table.Cell className="clear"/>
-                            <Table.Cell colSpan="2">Total:</Table.Cell>
+                            <Table.Cell colSpan="2">Sub-Total:</Table.Cell>
+                            <Table.Cell className="total-price">L.  {(subTotal).toFixed(2)}</Table.Cell>
+                        </Table.Row>
+                        <Table.Row className="summary-cart__resume">
+                            <Table.Cell className="clear"/>
+                            <Table.Cell colSpan="2">Comisióm (9%):</Table.Cell>
+                            <Table.Cell className="total-price">L.  {(commission).toFixed(2)}</Table.Cell>
+                        </Table.Row>
+                        <Table.Row className="summary-cart__resume">
+                            <Table.Cell className="clear"/>
+                            <Table.Cell colSpan="2">Envió:</Table.Cell>
+                            <Table.Cell className="total-price">L.  {(ENVIO).toFixed(2)}</Table.Cell>
+                        </Table.Row>
+                        <Table.Row className="summary-cart__resume">
+                            <Table.Cell className="clear"/>
+                            <Table.Cell colSpan="2">Total a pagar:</Table.Cell>
                             <Table.Cell className="total-price">L.  {(totalPrice).toFixed(2)}</Table.Cell>
                         </Table.Row>
                     </Table.Body>
                 </Table>
             </div>
+            <AddressShipping setAddress={setAddress}/>
+            {address && <Payment products={products} address={address} totalPrice={totalPrice}/>}
         </div>
+        
     )
 }
