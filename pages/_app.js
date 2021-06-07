@@ -5,7 +5,7 @@ import {useRouter} from "next/router";
 import AuthContext from "../context/AuthContext";
 import CartContext from "../context/CartContext";
 import {getToken, setToken, removeToken} from "../api/token";
-import {getProductsCart, addProductCart, countProductsCart, removeProductCart} from "../api/cart";
+import {getProductsCart, addProductCart, countProductsCart, removeProductCart, removeAllProductsCart} from "../api/cart";
 import "../scss/global.scss";
 import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -85,7 +85,7 @@ export default function MyApp({ Component, pageProps }) {
       addProductCart: (product) => addProduct(product),
       getProductCart: getProductsCart,
       removeProductCart: (product) => removeProduct(product),
-      removeAllProductCart: () => null,
+      removeAllProductCart: removeAllProductsCart,
     }),
     [totalProductsCart]
   );
