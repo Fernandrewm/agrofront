@@ -4,8 +4,6 @@ import BasicLayout from "../layouts/BasicLayout";
 import {getProductByIdApi} from "../api/product";
 import useCart from "../hooks/useCart";
 import SummaryCart from "../components/Cart/SummaryCart";
-import AddressShipping from "../components/Cart/AddressShipping";
-import Payment from "../components/Cart/Payment";
 
 export default function Cart() {
     const {getProductCart} = useCart();
@@ -61,8 +59,6 @@ function FullCart(props){
                 reloadCart={reloadCart}
                 setReloadCart={setReloadCart}
             />
-            {/* <AddressShipping setAddress={setAddress}/>
-            {address && <Payment  products={productsData} address={address}/>} */}
         </BasicLayout>
     )
 }

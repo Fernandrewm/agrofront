@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button} from "semantic-ui-react";
+import {Button, Message} from "semantic-ui-react";
 import {useRouter} from "next/router";
 import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import {toast} from "react-toastify";
@@ -10,7 +10,6 @@ import {paymentCartApi} from "../../../../api/cart";
 
 export default function FormPayment(props) {
     const {products, address, totalPrice} = props;
-    // console.log(totalPrice);
     const [loading, setLoading] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
@@ -49,6 +48,10 @@ export default function FormPayment(props) {
 
     return (
         <form className="form-payment" onSubmit={handleSubmit}>
+            <Message
+                header="SandBox Stripe - Información de Tarjeta de Testeo"
+                content="Número: 4242424242424242 | CVC: 3 dígitos cualquiera | Fecha: Cualquier fecha futura"
+            />
             <CardElement/>
             <Button type="submit" loading={loading} disabled={!stripe}>Pagar</Button>
         </form>

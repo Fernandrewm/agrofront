@@ -14,7 +14,10 @@ export default function Payment(props) {
             <div className="title">Pago</div>
             <div className="data">
                 <Elements stripe={stripePromise}>
-                    <FormPayment products={products} address={address} totalPrice={totalPrice}/>
+                    <FormPayment 
+                        products={products} 
+                        address={address} 
+                        totalPrice={totalPrice}/>
                 </Elements>
             </div>
         </div>

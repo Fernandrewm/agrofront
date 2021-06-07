@@ -96,7 +96,11 @@ export default function SummaryCart(props) {
                 </Table>
             </div>
             <AddressShipping setAddress={setAddress}/>
-            {address && <Payment products={products} address={address} totalPrice={totalPrice}/>}
+            {address && 
+                <Payment 
+                products={products} 
+                address={address} 
+                totalPrice={totalPrice}/>}
         </div>
         
     )
