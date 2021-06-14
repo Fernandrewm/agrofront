@@ -102,7 +102,7 @@ function Product(props) {
                                 {product.stock ? (
                                     <span className="stock">Stock: {product.stock}</span>
                                 ) : (
-                                    <span className="disappear"/>
+                                    <span className="stock-out">Sin stock</span>
                                 )}
                                 <span className="price">L.{product.price}</span>
                             </div>

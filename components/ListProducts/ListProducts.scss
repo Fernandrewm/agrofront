@@ -54,6 +54,11 @@
                 font-size: 12px;
                 color: $color-primary;
                 padding: 1px 3px;
+
+                &-out{
+                    color: $red;
+                    font-weight: bold;
+                }
             }
 
             .price{

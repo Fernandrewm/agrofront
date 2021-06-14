@@ -21,7 +21,7 @@ export default function SummaryCart(props) {
             let priceTemp = Math.floor((product.price * ISV)*100)/100;
             price += priceTemp * productsQuantity[index];
         });
-        setSubTotal(price);
+        setSubTotal(Math.floor(price*100)/100);
     }, [reloadCart, products])
 
     //Calculo de comision

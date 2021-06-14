@@ -1,4 +1,5 @@
 import {BASE_PATH} from "../utils/constants";
+import {authFetch} from "../utils/fetch";
 
 export async function getLastProductsApi(limit) {
     try {
@@ -63,5 +64,23 @@ export async function searchProductsApi(title){
   } catch (error) {
     console.log(error);
     return null;
+  }
+}
+
+export async function updateStockProduct(idProduct, stock, logout) {
+  try {
+      const url = `${BASE_PATH}/products/${idProduct}`;
+      const params = {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({stock}),
+      };
+      const result = await authFetch(url, params, logout);
+      return result ? result : null;
+  } catch (error) {
+      console.log(error);
+      return null;
   }
 }

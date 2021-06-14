@@ -25,7 +25,6 @@ function FullCart(props){
     const [productsData, setProductsData] = useState(null);
     const [productsQuantity, setProductsQuantity] = useState(null);
     const [reloadCart, setReloadCart] = useState(false);
-    // const [address, setAddress] = useState(null);
 
     //Obtenemos los datos de los productos del carrito mediante el id
     useEffect(() => {

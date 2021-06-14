@@ -54,7 +54,6 @@ export function countProductsCart(){
 
 export function removeProductCart(product) {
     const cart = getProductsCart();
-    console.log(cart);
     const cartTemp = [];
     let indexCart = null;
     
@@ -69,9 +68,6 @@ export function removeProductCart(product) {
         }
         return item === product.toString();
     });
-
-    console.log(cartTemp);
-    console.log(indexCart);
     cart.splice(indexCart,1);
     
   
