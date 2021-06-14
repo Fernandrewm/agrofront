@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Image, Grid, Icon, GridColumn, Button, Input} from "semantic-ui-react";
+import {toast} from "react-toastify";
 import Link from "next/link";
 import {map, set, size} from "lodash"; 
 import useWindowSize from "../../hooks/useWindowSize";
@@ -49,9 +50,12 @@ function Product(props) {
     const [quantity, setQuantity] = useState("");
     
     const handleChangeQuantity = (e) => {
-        if(!isNaN(e.target.value) && (e.target.value)>0){
+        if(!isNaN(e.target.value) && (e.target.value)>0 && (e.target.value) <= product.stock){
             setQuantity(e.target.value);
+        }else if ((e.target.value) > product.stock){
+            toast.error("La cantidad deseada es mayor al stock disponible.")
         } else {
+            toast.warning("La cantidad minima de compra es 1.")
             setQuantity("");
         }
     };
@@ -95,8 +99,8 @@ function Product(props) {
                             </div>
                             {/* Si el producto tiene descuento se muestra * */}
                             <div className="list-products__product-price">
-                                {product.discount ? (
-                                    <span className="discount">-{product.discount}%</span>
+                                {product.stock ? (
+                                    <span className="stock">Stock: {product.stock}</span>
                                 ) : (
                                     <span className="disappear"/>
                                 )}
