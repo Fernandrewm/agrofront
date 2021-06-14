@@ -14,22 +14,25 @@ export default function SummaryCart(props) {
     const [address, setAddress] = useState(null);
     const {removeProductCart} = useCart();
 
+    //Calculo de subtotal
     useEffect(() => {
         let price = 0;
         forEach(products, (product, index) => {
-            price += product.price * productsQuantity[index];
+            let priceTemp = Math.floor((product.price * ISV)*100)/100;
+            price += priceTemp * productsQuantity[index];
         });
-        price *= ISV;
         setSubTotal(price);
     }, [reloadCart, products])
 
+    //Calculo de comision
     useEffect(() => {
-        let priceComission = subTotal * COMISSION;
+        let priceComission = Math.floor((subTotal * COMISSION)*100)/100;
         setCommission(priceComission);
     }, [subTotal])
 
+    //Calculo precio final
     useEffect(() => {
-        let priceTotal = subTotal + commission + ENVIO;
+        let priceTotal = Math.floor((subTotal + commission + ENVIO)*100)/100;
         setTotalPrice(priceTotal);
     }, [subTotal, commission])
 
@@ -75,22 +78,22 @@ export default function SummaryCart(props) {
                         <Table.Row className="summary-cart__resume">
                             <Table.Cell className="clear"/>
                             <Table.Cell colSpan="2">Sub-Total:</Table.Cell>
-                            <Table.Cell className="total-price">L.  {(subTotal).toFixed(2)}</Table.Cell>
+                            <Table.Cell className="total-price">L.{subTotal}</Table.Cell>
                         </Table.Row>
                         <Table.Row className="summary-cart__resume">
                             <Table.Cell className="clear"/>
                             <Table.Cell colSpan="2">Comisióm (9%):</Table.Cell>
-                            <Table.Cell className="total-price">L.  {(commission).toFixed(2)}</Table.Cell>
+                            <Table.Cell className="total-price">L.  {commission}</Table.Cell>
                         </Table.Row>
                         <Table.Row className="summary-cart__resume">
                             <Table.Cell className="clear"/>
                             <Table.Cell colSpan="2">Envió:</Table.Cell>
-                            <Table.Cell className="total-price">L.  {(ENVIO).toFixed(2)}</Table.Cell>
+                            <Table.Cell className="total-price">L.  {ENVIO}</Table.Cell>
                         </Table.Row>
-                        <Table.Row className="summary-cart__resume">
+                        <Table.Row className="summary-cart__resume-TotalPayment">
                             <Table.Cell className="clear"/>
                             <Table.Cell colSpan="2">Total a pagar:</Table.Cell>
-                            <Table.Cell className="total-price">L.  {(totalPrice).toFixed(2)}</Table.Cell>
+                            <Table.Cell className="total-price">L.  {totalPrice}</Table.Cell>
                         </Table.Row>
                     </Table.Body>
                 </Table>

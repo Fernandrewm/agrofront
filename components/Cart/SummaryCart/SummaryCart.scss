@@ -30,11 +30,20 @@
         }
       }
     }
+
+    &__resume{
+      td{
+        &:last-of-type{
+          text-align: center !important;
+        }
+      }
+    }
   
-    &__resume {
+    &__resume-TotalPayment {
       td {
         &:last-of-type {
           text-align: center !important;
+          font-size: 16px;
         }
       }
   
