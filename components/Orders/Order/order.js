@@ -17,7 +17,7 @@ export default function Order(props) {
                     {map(order, (orderItem, index) => (
                         <div className="order__info-item">
                             <Image src={orderItem.product.image.url} alt={orderItem.product.title} />
-                            <p>{orderItem.product.title}</p>
+                            <p>{orderItem.product.title}: {orderItem.productQuantity}</p>
                         </div>
                     ))}
 
