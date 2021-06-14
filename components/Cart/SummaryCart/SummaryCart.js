@@ -100,7 +100,8 @@ export default function SummaryCart(props) {
                 <Payment 
                 products={products} 
                 address={address} 
-                totalPrice={totalPrice}/>}
+                totalPrice={totalPrice}
+                productsQuantity={productsQuantity}/>}
         </div>
         
     )

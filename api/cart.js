@@ -82,7 +82,7 @@ export function removeProductCart(product) {
     }
 }
 
-export async function paymentCartApi(token, products, totalPayment, idUser, address,logout) {
+export async function paymentCartApi(token, products, totalPayment, productsQuantity, idUser, address,logout) {
     try {
         const addressShipping = address;
         delete addressShipping.users_permissions_user;
@@ -98,6 +98,7 @@ export async function paymentCartApi(token, products, totalPayment, idUser, addr
                 token,
                 products,
                 totalPayment,
+                productsQuantity,
                 idUser,
                 addressShipping,
             }),

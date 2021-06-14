@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Image, Grid, Icon, GridColumn, Button, Input} from "semantic-ui-react";
 import Link from "next/link";
-import {map, size} from "lodash"; 
+import {map, set, size} from "lodash"; 
 import useWindowSize from "../../hooks/useWindowSize";
 import {breakpointUpSm, breakpointUpMd, breakpointUpLg} from "../../utils/breakpoint";
 import useAuth from "../../hooks/useAuth";
@@ -46,8 +46,15 @@ function Product(props) {
     
     const [isFavorite, setIsFavorite] = useState(false);
     const [reloadFavorite, setReloadFavorite] = useState(false);
-    const [quantity, setQuantity] = useState(1);
-    // console.log(quantity);
+    const [quantity, setQuantity] = useState("");
+    
+    const handleChangeQuantity = (e) => {
+        if(!isNaN(e.target.value) && (e.target.value)>0){
+            setQuantity(e.target.value);
+        } else {
+            setQuantity("");
+        }
+    };
     
     useEffect(() => {
         (async () => {
@@ -96,7 +103,14 @@ function Product(props) {
                                 <span className="price">L.{product.price}</span>
                             </div>
                             <div className="list-products__product-addCart">
-                                <Input onChange={(_, data)=> setQuantity(data.value)} type='number' placeholder='Cantidad'/>
+                                <Input 
+                                    // onChange={(_, data) => setQuantity(data.value)} 
+                                    onChange={handleChangeQuantity}
+                                    type='text'
+                                    value={quantity}
+                                    min = "1"
+                                    placeholder='Cantidad'
+                                />
                                 <Button onClick={()=> addProductCart(product.id.toString()+"-"+quantity)}>Agregar al carrito</Button>
                             </div>
                         </div>

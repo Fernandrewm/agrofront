@@ -9,7 +9,7 @@ import useCart from "../../../../hooks/useCart";
 import {paymentCartApi, removeAllProductsCart} from "../../../../api/cart";
 
 export default function FormPayment(props) {
-    const {products, address, totalPrice} = props;
+    const {products, address, totalPrice, productsQuantity} = props;
     const [loading, setLoading] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
@@ -33,6 +33,7 @@ export default function FormPayment(props) {
                 result.token,
                 products,
                 totalPrice,
+                productsQuantity,
                 auth.idUser,
                 address,
                 logout

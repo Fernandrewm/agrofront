@@ -8,7 +8,7 @@ import { STRIPE_TOKEN } from "../../../utils/constants";
 const stripePromise = loadStripe(STRIPE_TOKEN);
 
 export default function Payment(props) {
-    const {products, address, totalPrice} = props;
+    const {products, address, totalPrice, productsQuantity} = props;
     return (
         <div className="payment">
             <div className="title">Pago</div>
@@ -17,7 +17,8 @@ export default function Payment(props) {
                     <FormPayment 
                         products={products} 
                         address={address} 
-                        totalPrice={totalPrice}/>
+                        totalPrice={totalPrice}
+                        productsQuantity={productsQuantity}/>
                 </Elements>
             </div>
         </div>
