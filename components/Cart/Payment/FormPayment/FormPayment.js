@@ -17,7 +17,6 @@ export default function FormPayment(props) {
     const stripe = useStripe();
     const elements = useElements();
     const {auth, logout} = useAuth();
-    console.log(logout);
     const {removeAllProductCart} = useCart();
     const router = useRouter();
 

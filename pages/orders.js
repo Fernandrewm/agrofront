@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Grid} from "semantic-ui-react";
-import {map, size} from "lodash";
+import {map, size, groupBy} from "lodash";
 import BasicLayout from "../layouts/BasicLayout";
 import {getOrdersApi} from "../api/order";
 import useAuth from "../hooks/useAuth";
@@ -17,6 +17,8 @@ export default function Orders() {
         })()
     }, [])
 
+    const orderByIdPayment = groupBy(orders, 'idPayment')
+
     return (
         <BasicLayout className="orders">
             <div className="orders__block">
@@ -27,7 +29,7 @@ export default function Orders() {
                             Todavía no has realizado ninguna compra.
                         </h2>
                     ) : (
-                        <OrderList orders={orders}/>
+                        <OrderList orders={orderByIdPayment}/>
                     )}
                 </div>
             </div>
@@ -41,7 +43,7 @@ function OrderList(props) {
         <div>
             <Grid>
                 {map(orders, (order, index) => (
-                    <Grid.Column mobile={16} tablet={8} computer={4}>
+                    <Grid.Column mobile={16} tablet={8} computer={5}>
                         <Order order={order}/>
                     </Grid.Column>
 
