@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import Router from 'next/router';
 import {Table, Image, Icon, Tab, Input} from "semantic-ui-react";
 import {forEach, map} from "lodash";
 import useCart from "../../../hooks/useCart";
@@ -39,6 +40,7 @@ export default function SummaryCart(props) {
     const removeProduct = (product) => {
         removeProductCart(product);
         setReloadCart(true);
+        Router.reload(window.location.pathname);
     };
 
     return (
@@ -47,7 +49,7 @@ export default function SummaryCart(props) {
                 Resumen del carrito
             </div>
             <div className="data">
-                <Table celled structured>
+                <Table fixed celled structured>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Producto</Table.HeaderCell>
@@ -59,7 +61,7 @@ export default function SummaryCart(props) {
                     <Table.Body>
                         {map(products, (product, index) => (
                             <Table.Row key={product.id} className="summary-cart__product">
-                                <Table.Cell>
+                                <Table.Cell className="firstCell">
                                     <Icon name="close" link onClick={() => removeProduct(product.id)}/>
                                     <Image src={product.image.url} alt={product.title}/>
                                     {product.title}

@@ -2,12 +2,16 @@
     width: 60%;
     margin: 0 auto;
 
+    @media (max-width: $screen-sm-min){
+        width: 100%;
+    }
+
     .ui.message{
         margin-bottom: 10;
         padding: 0;
         .content{
             border-radius: 5px;
-            height: 50px;
+            height: auto;
             box-shadow: none;
             background-color: $color-third;
             .header{

@@ -1,0 +1,14 @@
+.login-form{
+    .actions{
+        @media (max-width: $screen-sm-min) {
+            .ui.button.submit{
+                width: 100%;
+            }
+
+            .ui.basic.button{
+                width: 100%;
+                margin-top: 10px !important;
+            }
+        }
+    }
+}

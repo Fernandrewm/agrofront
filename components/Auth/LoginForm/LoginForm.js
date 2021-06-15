@@ -60,7 +60,7 @@ export default function LoginForm(props) {
                 <Button type="button" basic onClick={showRegisterForm}>
                     Registrarse
                 </Button>
-                <div>
+                <div className="others-actions">
                     <Button className="submit" type="submit" loading={loading}>
                         Entrar
                     </Button>

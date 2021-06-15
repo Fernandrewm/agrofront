@@ -24,7 +24,7 @@
           align-items: center;
   
           img {
-            width: 12%;
+            width: 30%;
             padding-right: 20px;
           }
         }
@@ -36,6 +36,11 @@
         &:last-of-type{
           text-align: center !important;
         }
+      }
+
+      .clear {
+        border-bottom: 1px solid $border-light !important;
+        border-left: 1px solid $border-light !important;
       }
     }
   
@@ -56,6 +61,19 @@
       .clear {
         border-bottom: 1px solid $border-light !important;
         border-left: 1px solid $border-light !important;
+      }
+    }
+
+    @media (max-width: $screen-sm-min){
+      .ui.celled.table tr td:first-child, .ui.celled.table tr th:first-child{
+        display: flex !important;
+      }
+      &__product{
+        td.firstCell{
+          img{
+            width: 30%;
+          }
+        }
       }
     }
   }
