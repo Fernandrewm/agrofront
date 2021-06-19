@@ -60,6 +60,7 @@ function Product(props) {
         }
     };
     
+    //Obtiene los productos favoritos de un usuario
     useEffect(() => {
         (async () => {
             const response = await isFavoriteApi(auth.idUser, product.id, logout);
@@ -69,6 +70,7 @@ function Product(props) {
         setReloadFavorite(false);
     }, [product, reloadFavorite]);
 
+    //Agregar productos a favoritos de un usuario
     const addFavorite = async () => {
         if(auth){
             await addFavoriteApi(auth.idUser, product.id, logout);
@@ -76,6 +78,7 @@ function Product(props) {
         }
     }
 
+    //Elimina productos la lista favorita de un usuario
     const deleteFavorite = async () => {
         if(auth){
             await deleteFavoriteApi(auth.idUser, product.id, logout);
@@ -108,14 +111,22 @@ function Product(props) {
                             </div>
                             <div className="list-products__product-addCart">
                                 <Input 
-                                    // onChange={(_, data) => setQuantity(data.value)} 
                                     onChange={handleChangeQuantity}
                                     type='text'
                                     value={quantity}
                                     min = "1"
                                     placeholder='Cantidad'
                                 />
-                                <Button onClick={()=> addProductCart(product.id.toString()+"-"+quantity)}>Agregar al carrito</Button>
+                                <Button 
+                                    onClick={ () =>
+                                        {product.stock ? (
+                                            addProductCart(product.id.toString()+"-"+quantity)
+                                        ) : (
+                                            toast.error("Temporalmente no hay stock de este producto.")
+                                        )}
+                                    }
+                                    // onClick={()=> addProductCart(product.id.toString()+"-"+quantity)}
+                                >Agregar al carrito</Button>
                             </div>
                         </div>
                     </div>
