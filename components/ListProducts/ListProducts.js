@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Image, Grid, Icon, GridColumn, Button, Input} from "semantic-ui-react";
 import {toast} from "react-toastify";
-import Link from "next/link";
-import {map, set, size} from "lodash"; 
+import {map, size} from "lodash"; 
 import useWindowSize from "../../hooks/useWindowSize";
 import {breakpointUpSm, breakpointUpMd, breakpointUpLg} from "../../utils/breakpoint";
 import useAuth from "../../hooks/useAuth";
