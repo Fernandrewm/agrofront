@@ -5,6 +5,7 @@ import BasicLayout from "../layouts/BasicLayout";
 import {getMeApi} from "../api/user";
 import useAuth from "../hooks/useAuth";
 import ChangeNameForm from "../components/Account/ChangeNameForm";
+import ChangeNameRestaurantForm from "../components/Account/ChangeNameRestaurantForm";
 import ChangeEmailForm from "../components/Account/ChangeEmailForm";
 import ChangePasswordForm from "../components/Account/ChangePasswordForm";
 import BasicModal from "../components/Modal/BasicModal";
@@ -49,6 +50,11 @@ function Configuration(props) {
       <div className="account__configuration">
         <div className="title">Configuración</div>
         <div className="data">
+          <ChangeNameRestaurantForm
+            user={user}
+            logout={logout}
+            setReloadUser={setReloadUser}
+          />
           <ChangeNameForm
             user={user}
             logout={logout}

@@ -1,4 +1,12 @@
 .login-form{
+    .termsAndConditions{
+        .ui.input{
+            width: 5% !important;
+            input{
+                height: 18px;
+            }
+        }
+    }
     .actions{
         @media (max-width: $screen-sm-min) {
             .ui.button.submit{

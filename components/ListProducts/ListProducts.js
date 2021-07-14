@@ -47,6 +47,7 @@ function Product(props) {
     const [isFavorite, setIsFavorite] = useState(false);
     const [reloadFavorite, setReloadFavorite] = useState(false);
     const [quantity, setQuantity] = useState("");
+    console.log(quantity);
     
     //Valida las cantidades del producto a comprar
     const handleChangeQuantity = (e) => {
@@ -121,13 +122,12 @@ function Product(props) {
                                 />
                                 <Button 
                                     onClick={ () =>
-                                        {product.stock ? (
+                                        {product.stock && quantity != "" ? (
                                             addProductCart(product.id.toString()+"-"+quantity)
                                         ) : (
-                                            toast.error("Temporalmente no hay stock de este producto.")
+                                            toast.error("Cantidad mínima de compra es 1 o no hay stock.")
                                         )}
                                     }
-                                    // onClick={()=> addProductCart(product.id.toString()+"-"+quantity)}
                                 >Agregar al carrito</Button>
                             </div>
                         </div>

@@ -72,7 +72,7 @@ export default function AddressForm(props) {
                 onChange={formik.handleChange}
                 value={formik.values.title}
                 error={formik.errors.title}
-                />
+            />
             <Form.Group widths="equal">
                 <Form.Input
                     name="name"

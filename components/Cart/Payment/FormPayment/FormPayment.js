@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {forEach} from "lodash";
 import {Button, Message} from "semantic-ui-react";
-import {useRouter} from "next/router";
+import {Router, useRouter} from "next/router";
 import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import {toast} from "react-toastify";
 import {size} from "lodash";
@@ -17,7 +17,7 @@ export default function FormPayment(props) {
     const stripe = useStripe();
     const elements = useElements();
     const {auth, logout} = useAuth();
-    const {removeAllProductCart} = useCart();
+    const {removeAllProductsCart} = useCart();
     const router = useRouter();
 
     // Definir el nuevo inventario para cada producto del carro
@@ -56,7 +56,7 @@ export default function FormPayment(props) {
                     updateStockProduct(stock[0], stock[1], logout);
                 }
                 toast.success("Pedido completado");
-                removeAllProductCart();
+                removeAllProductsCart();
                 router.push("/orders");
             } else {
                 toast.error("Error al realizar el pedido.");

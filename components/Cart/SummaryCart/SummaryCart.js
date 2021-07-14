@@ -37,6 +37,7 @@ export default function SummaryCart(props) {
         setTotalPrice(priceTotal);
     }, [subTotal, commission])
 
+    //Remueve un producto del carrito
     const removeProduct = (product) => {
         removeProductCart(product);
         setReloadCart(true);

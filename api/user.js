@@ -86,6 +86,24 @@ export async function updateNameApi(idUser, data, logout) {
     }
 }
 
+export async function updateRestaurantNameApi(idUser, restaurantName, logout) {
+    try {
+        const url = `${BASE_PATH}/users/${idUser}`;
+        const params = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(restaurantName),
+        };
+        const result = await authFetch(url, params, logout);
+        return result ? result : null;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
 export async function updateEmailApi(idUser, email, logout) {
     try {
         const url = `${BASE_PATH}/users/${idUser}`;

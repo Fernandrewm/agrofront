@@ -19,6 +19,7 @@ export default function MyApp({ Component, pageProps }) {
   const [reloadCart, setReloadCart] = useState(false);
   const router = useRouter();
   
+  //Verifica si el usuario esta logueado o no
   useEffect(() => {
     const token = getToken();
     if(token){
@@ -85,7 +86,7 @@ export default function MyApp({ Component, pageProps }) {
       addProductCart: (product) => addProduct(product),
       getProductCart: getProductsCart,
       removeProductCart: (product) => removeProduct(product),
-      removeAllProductCart: removeAllProductsCart,
+      removeAllProductsCart: removeAllProductsCart,
     }),
     [totalProductsCart]
   );

@@ -13,6 +13,7 @@ export default function ChangeNameForm(props) {
     initialValues: initialValues(user.name, user.lastname),
     validationSchema: Yup.object(validationSchema()),
     onSubmit: async (formData) => {
+      console.log(formData)
       setLoading(true);
       const response = await updateNameApi(user.id, formData, logout);
       if (!response) {
