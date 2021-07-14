@@ -7,6 +7,7 @@ import {getCategoriesApi} from "../../../api/category";
 export default function Categorias() {
     const [categories, setCategories] = useState([]);
 
+    //Trae las categorias registradas
     useEffect(() => {
         (async () => {
             const response = await getCategoriesApi();
@@ -27,6 +28,7 @@ export default function Categorias() {
     )
 }
 
+//Pinta las categorias obtenidas
 function ObtenerCategorias(props) {
     const {categories} = props;
     return(

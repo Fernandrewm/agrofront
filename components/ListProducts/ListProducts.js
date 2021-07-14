@@ -48,6 +48,7 @@ function Product(props) {
     const [reloadFavorite, setReloadFavorite] = useState(false);
     const [quantity, setQuantity] = useState("");
     
+    //Valida las cantidades del producto a comprar
     const handleChangeQuantity = (e) => {
         if(!isNaN(e.target.value) && (e.target.value)>0 && (e.target.value) <= product.stock){
             setQuantity(e.target.value);
@@ -60,14 +61,17 @@ function Product(props) {
     };
     
     //Obtiene los productos favoritos de un usuario
-    useEffect(() => {
-        (async () => {
-            const response = await isFavoriteApi(auth.idUser, product.id, logout);
-            if(size(response) > 0) setIsFavorite(true);
-            else setIsFavorite(false);
-        })();
-        setReloadFavorite(false);
-    }, [product, reloadFavorite]);
+    //if auth arregla el error pero rompe el login
+    // if(auth){
+        useEffect(() => {
+            (async () => {
+                const response = await isFavoriteApi(auth.idUser, product.id, logout);
+                if(size(response) > 0) setIsFavorite(true);
+                else setIsFavorite(false);
+            })();
+            setReloadFavorite(false);
+        }, [product, reloadFavorite]);
+    // }
 
     //Agregar productos a favoritos de un usuario
     const addFavorite = async () => {
@@ -99,7 +103,6 @@ function Product(props) {
                                     onClick = {isFavorite ? deleteFavorite : addFavorite}
                                 />
                             </div>
-                            {/* Si el producto tiene descuento se muestra * */}
                             <div className="list-products__product-price">
                                 {product.stock ? (
                                     <span className="stock">Stock: {product.stock}</span>

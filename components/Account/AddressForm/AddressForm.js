@@ -11,6 +11,7 @@ export default function AddressForm(props) {
     const [loading, setLoading] = useState(false);
     const {auth, logout} = useAuth();
 
+    //Validación de datos
     const formik = useFormik({
         initialValues: initialValues(address),
         validationSchema: Yup.object(validationSchema()),
@@ -19,6 +20,7 @@ export default function AddressForm(props) {
         }
     });
 
+    //Crear nueva dirección
     const createAddress = async (formData) => {
         setLoading(true);
         console.log(auth.idUser);
@@ -40,6 +42,7 @@ export default function AddressForm(props) {
         }
     };
 
+    //Actualizar nueva dirección
     const updateAddress = (formData) => {
         setLoading(true);
         const formDataTemp = {
@@ -48,12 +51,12 @@ export default function AddressForm(props) {
         };
         const response = updateAddressApi(address.id, formDataTemp, logout);
         if(!response){
-            toast.error("Error al actualizar la direccion.");
+            toast.error("Error al actualizar la dirección");
             setLoading(false);
         } else {
             formik.resetForm();
             setReloadAddresses(true);
-            toast.success("Direccion actualizada correctamente.");
+            toast.success("Dirección actualizada correctamente.");
             setLoading(false);
             setShowModal(false);
         }
@@ -64,8 +67,8 @@ export default function AddressForm(props) {
             <Form.Input
                 name="title"
                 type="text"
-                label="Titulo de la direccion"
-                placeholder="Titulo de la direccion"
+                label="Título de la dirección"
+                placeholder="Título de la dirección"
                 onChange={formik.handleChange}
                 value={formik.values.title}
                 error={formik.errors.title}
@@ -83,8 +86,8 @@ export default function AddressForm(props) {
                 <Form.Input
                     name="address"
                     type="text"
-                    label="Direccion"
-                    placeholder="Direccion"
+                    label="Dirección"
+                    placeholder="Dirección"
                     onChange={formik.handleChange}
                     value={formik.values.address}
                     error={formik.errors.address}
@@ -114,8 +117,8 @@ export default function AddressForm(props) {
                 <Form.Input
                     name="postalCode"
                     type="text"
-                    label="Codigo Postal"
-                    placeholder="Codigo Postal"
+                    label="Código Postal"
+                    placeholder="Código Postal"
                     onChange={formik.handleChange}
                     value={formik.values.postalCode}
                     error={formik.errors.postalCode}
@@ -123,8 +126,8 @@ export default function AddressForm(props) {
                 <Form.Input
                     name="phone"
                     type="text"
-                    label="Numero de telefono"
-                    placeholder="Numero de telefono"
+                    label="Número de teléfono"
+                    placeholder="Número de teléfono"
                     onChange={formik.handleChange}
                     value={formik.values.phone}
                     error={formik.errors.phone}
@@ -132,7 +135,7 @@ export default function AddressForm(props) {
             </Form.Group>
             <div className="actions">
                 <Button className="submit" type="submit" loading={loading}>
-                    {newAddress ? "Crear direccion" : "Actualizar direccion"}
+                    {newAddress ? "Crear dirección" : "Actualizar dirección"}
                 </Button>
             </div>
         </Form>

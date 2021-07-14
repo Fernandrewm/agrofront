@@ -9,13 +9,13 @@ export default function RegisterForm(props) {
     const {showLoginForm} = props;
     const [loading, setLoading] = useState(false);
 
+    //Validación de datos ingresados
     const formik = useFormik({
         initialValues: initialValues(),
         validationSchema: Yup.object(validationSchema()),
         onSubmit: async (formData) => {
             setLoading(true);
             const response = await registerApi(formData);
-            console.log(response);
             if(response?.jwt){
                 toast.success("Usuario creado exitosamente, inicie sesión.");
                 showLoginForm();
@@ -52,7 +52,7 @@ export default function RegisterForm(props) {
             <Form.Input 
                 name="email" 
                 type="text" 
-                placeholder="Correo electronico" 
+                placeholder="Correo electrónico" 
                 onChange={formik.handleChange}
                 error={formik.errors.email}
             />

@@ -11,6 +11,7 @@ export default function LoginForm(props) {
     const [loading, setLoading] = useState(false);
     const {login} = useAuth();
 
+    //Validación de datos mediante Formik
     const formik = useFormik({
         initialValues : initialValues(),
         validationSchema : Yup.object(validationSchema()),
@@ -27,23 +28,24 @@ export default function LoginForm(props) {
         }
     });
 
-    const resetPassword = () => {
-        formik.setErrors({});
-        const validateEmail = Yup.string().email().required();
+    //No se aplico ya que no se pudo configurar el SMTP para el envio del correo
+    // const resetPassword = () => {
+    //     formik.setErrors({});
+    //     const validateEmail = Yup.string().email().required();
 
-        if(!validateEmail.isValidSync(formik.values.identifier)){
-            formik.setErrors({identifier: true})
-        } else {
-            resetPasswordApi(formik.values.identifier);
-        }
-    }
+    //     if(!validateEmail.isValidSync(formik.values.identifier)){
+    //         formik.setErrors({identifier: true})
+    //     } else {
+    //         resetPasswordApi(formik.values.identifier);
+    //     }
+    // }
 
     return (
         <Form className="login-form" onSubmit={formik.handleSubmit}>
             <Form.Input 
                 name="identifier" 
                 type="text" 
-                placeholder="Correo electronico" 
+                placeholder="Correo electrónico" 
                 onChange={formik.handleChange}
                 error={formik.errors.identifier}
             />
@@ -51,7 +53,7 @@ export default function LoginForm(props) {
             <Form.Input 
                 name="password" 
                 type="password" 
-                placeholder="Contrasena" 
+                placeholder="Contraseña" 
                 onChange={formik.handleChange}
                 error={formik.errors.password}
             />
@@ -64,9 +66,9 @@ export default function LoginForm(props) {
                     <Button className="submit" type="submit" loading={loading}>
                         Entrar
                     </Button>
-                    <Button type="button" onClick={resetPassword}>
-                        Has olvidado la contrasena?
-                    </Button>
+                    {/* <Button type="button" onClick={resetPassword}>
+                        ¿Has olvidado la contraseña?
+                    </Button> */}
                 </div>
             </div>
         </Form>
@@ -80,6 +82,7 @@ function initialValues(){
     }
 }
 
+//Definición de datos a validar
 function validationSchema(){
     return{
         identifier: Yup.string().email(true).required(true),

@@ -14,6 +14,7 @@ export default function TopBar() {
     const [user, setUser] = useState(undefined);
     const {auth, logout} = useAuth();
 
+    //Trae los datos del usuario logeado
     useEffect(() => {
         (async () => {
             const response = await getMeApi(logout);
@@ -55,6 +56,7 @@ export default function TopBar() {
     )
 }
 
+//Configuracion de logo
 function Logo(){
     return (
         <Link href="/">
@@ -65,11 +67,13 @@ function Logo(){
     );
 }
 
+//Configuracion de barra de busqueda
 function Search(){
     const [searchStr, setSearchStr] = useState("");
     const [load, setLoad] = useState(false);
     const router = useRouter();
 
+    //Observa lo que esta sucediendo en la barra de busqueda y retorna los resultados
     useEffect(() => {
         if(load) {
             router.push(`/search?query=${searchStr}`)
@@ -87,6 +91,7 @@ function Search(){
     );
 }
 
+//Configuracion del menu de usuario
 function MenuUsuario(props) {
     const {onShowModal, user, logout} = props;
     const {productsCart} = useCart();
