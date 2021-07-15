@@ -38,7 +38,6 @@ export async function addFavoriteApi(idUser, idProduct, logout) {
 export async function deleteFavoriteApi(idUser, idProduct, logout){
     try {
         const dataFound = await isFavoriteApi(idUser, idProduct, logout);
-        console.log(dataFound);
         if(size(dataFound) > 0){
             const url = `${BASE_PATH}/favorites/${dataFound[0].id}`;
             const params = {

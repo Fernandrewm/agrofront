@@ -35,8 +35,8 @@ export default function RegisterForm(props) {
                 placeholder="Nombre del restaurante"
                 onChange={formik.handleChange}
                 value={formik.values.restaurantName}
-                error={formik.errors.restaurantName}
             />
+            {errors.restaurantName}
             <Form.Input
                 name="restaurantRtn"
                 type="text"

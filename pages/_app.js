@@ -33,11 +33,13 @@ export default function MyApp({ Component, pageProps }) {
     setReloadUser(false);
   }, [reloadUser]);
 
+  //Watcher para los productos en el carrito
   useEffect(() => {
     setTotalProductsCart(countProductsCart());
     setReloadCart(false);
   }, [reloadCart, auth]);
 
+  //Guarda en variable el set del token del usuario
   const login = (token) => {
     setToken(token);
     setAuth({
@@ -55,6 +57,7 @@ export default function MyApp({ Component, pageProps }) {
     }
   }
 
+  //Agrega un producto al carrito
   const addProduct = (product) => {
     const token = getToken();
     if(token){
@@ -65,11 +68,13 @@ export default function MyApp({ Component, pageProps }) {
     }
   }
 
+  //Elimina un producto del carrito
   const removeProduct = (product) => {
     removeProductCart(product);
     setReloadCart(true);
   };
 
+  //Guarda los datos de inicio de sesion del usuario para usarlos en toda la app
   const authData = useMemo(
     () => ({
       auth,
@@ -80,6 +85,7 @@ export default function MyApp({ Component, pageProps }) {
     [auth]
   );
 
+  //Guarda en variable el contexto del carro para usarlo a lo largo de la app
   const cartData = useMemo(
     () => ({
       productsCart: totalProductsCart,
@@ -91,6 +97,7 @@ export default function MyApp({ Component, pageProps }) {
     [totalProductsCart]
   );
 
+  //Valida si un usuario esta logeado o no
   if(auth === undefined) return null;
 
   return (

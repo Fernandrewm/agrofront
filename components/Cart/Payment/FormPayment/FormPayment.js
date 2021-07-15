@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {forEach} from "lodash";
 import {Button, Message} from "semantic-ui-react";
-import {Router, useRouter} from "next/router";
+import {useRouter} from "next/router";
 import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import {toast} from "react-toastify";
 import {size} from "lodash";
 import useAuth from "../../../../hooks/useAuth";
 import useCart from "../../../../hooks/useCart";
 import {updateStockProduct} from "../../../../api/product";
-import {paymentCartApi, removeAllProductsCart} from "../../../../api/cart";
+import {paymentCartApi} from "../../../../api/cart";
 
 export default function FormPayment(props) {
     const {products, address, totalPrice, productsQuantity} = props;

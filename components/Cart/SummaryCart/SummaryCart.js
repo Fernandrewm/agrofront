@@ -85,7 +85,7 @@ export default function SummaryCart(props) {
                         </Table.Row>
                         <Table.Row className="summary-cart__resume">
                             <Table.Cell className="clear"/>
-                            <Table.Cell colSpan="2">Comisióm (9%):</Table.Cell>
+                            <Table.Cell colSpan="2">Comisión (9%):</Table.Cell>
                             <Table.Cell className="total-price">L.  {commission}</Table.Cell>
                         </Table.Row>
                         <Table.Row className="summary-cart__resume">
