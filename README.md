@@ -3,7 +3,6 @@ This is AgroApp, Honduras' first ecommerce focused on agriculture. The goal is t
 Developed for my graduation project prior to obtaining my degree in Computer Engineering.
 
 Visit:
-agrofront.fmunoz.me
 
 ------------------------------------------------
 
